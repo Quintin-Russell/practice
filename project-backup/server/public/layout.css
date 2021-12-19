@@ -1,3 +1,8 @@
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
 .row {
   display: flex;
   flex-direction: row;
@@ -10,7 +15,12 @@
 .whole-pg-cont {
   display: flex;
   flex-direction: column;
-  margin-bottom: -3rem;
+}
+
+.scroll {
+  height: 85vh;
+  overflow: scroll;
+  margin-bottom: 3rem;
 }
 
 .col {
@@ -49,7 +59,7 @@
 .footer-cont {
   justify-content: space-between;
   align-items: center;
-  min-height: 3rem;
+  display: flex;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -72,7 +82,6 @@
 }
 
 .overlay {
-  background: linear-gradient(transparent, rgb(0 0 0 / 75%));
   position: absolute;
   top: 0;
   bottom: 0;
@@ -80,6 +89,7 @@
   right: 0;
   display: flex;
   justify-content: flex-start;
+  height: 116%;
 }
 
 .menu-cont {
@@ -132,6 +142,7 @@
 .exp-form-cont {
   width: 90%;
   margin: auto;
+  z-index: 1;
 }
 
 .exp-form {
@@ -176,28 +187,18 @@
 }
 
 .table-header {
-  font-size: 0.85rem;
   margin: 0 1rem;
   display: flex;
   justify-content: space-between;
 }
 
-.shaded {
-  background-color: #f2f2f275;
-}
-
 .table-txt {
-  font-family: noto-sans, sans-serif;
-  font-size: 0.75rem;
-  font-weight: 100;
-  padding: 0 0.5rem;
   text-align: center;
 }
 
 .table-item {
   justify-content: space-between;
   margin: 0 1rem;
-  border-radius: 1rem;
   align-items: center;
 }
 
@@ -225,5 +226,15 @@
 
 .disp-none {
   display: none;
-  color: #f2f2f200;
+}
+
+.x-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.modal-icon-cont {
+  text-align: center;
+  flex-direction: row;
 }
