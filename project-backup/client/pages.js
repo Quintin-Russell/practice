@@ -29,6 +29,14 @@ export default [
     createQuery: '#pastexpenses?funct=create',
     editQuery: '#pastexpenses?funct=edit',
     deleteQuery: '#pastexpenses?funct=delete',
+    fetchReqs: {
+      delete: {
+        type: 'DELETE',
+        sucessMessage: 'Your expense was deleted!',
+        bodyParameter: 'expenseId',
+        url: '/api/expenses'
+      }
+    },
     wholepagecont: 'whole-pg-cont scroll',
     table: {
       tableHeaders: ['Date', 'Amount', 'Comment'],

@@ -6,6 +6,7 @@ import Header from './components/header';
 import Footer from './components/footer';
 import pages from './pages';
 import Menu from './components/menu';
+import Modal from './components/modal';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -16,8 +17,14 @@ export default class App extends React.Component {
       route: parseRoute(window.location.hash),
       page: pages.find(pg => pg.name === 'Home'),
       showMenu: false,
+      editOrDeleteObj: null,
       defaultTimeFrame: 'Monthly'
     };
+  }
+
+  setEditOrDeleteObj(e) {
+    const tar = e.target.getAttribute('data');
+    this.setState({ setEditOrDeleteObj: parseInt(tar) });
   }
 
   renderPage() {
@@ -34,6 +41,8 @@ export default class App extends React.Component {
       userId={this.state.userId}
       pastExpenses={this.state.pastExpenses}
       page={this.state.page}
+      convertTime={this.convertTime}
+      setEditOrDeleteObj={this.setEditOrDeleteObj.bind(this)}
      />
       );
     }
@@ -52,18 +61,34 @@ export default class App extends React.Component {
     this.setState({ showMenu: !curentShowMenu });
   }
 
+  convertTime(dt) {
+    const time = new Date(dt);
+    const yr = time.getYear();
+    return `${time.getMonth()}-${time.getDate()}-${yr - 100}`;
+  }
+
   render() {
     return (
       <>
+      <Modal
+      route={this.state.route}
+      page={this.state.page}
+      convertTime={this.convertTime}
+      userId={this.state.userId}
+      editOrDeleteObj={this.state.editOrDeleteObj} />
+
       <Header
       toggleMenu={this.toggleMenu}
       route={this.state.route}
       pages={pages}/>
+
       { this.state.showMenu && <Menu toggleMenu={this.toggleMenu} pages={pages}/> }
+
       <div className={this.state.page.wholepagecont}>
         {this.renderPage()}
       </div>
-        <Footer
+
+       <Footer
         pages={pages}
         route={this.state.route} />
       </>
