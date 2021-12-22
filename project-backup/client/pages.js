@@ -8,7 +8,11 @@ export default [
     footerIcon: false,
     menuIcon: true,
     createQuery: null,
+    editQuery: null,
+    deleteQuery: null,
+    fetchReqs: {},
     wholepagecont: 'whole-pg-cont',
+    table: {},
     formOptions: {
       headerTxt: 'Enter a New Expense',
       toggleOptions: ['Expense', 'Deposit'],
@@ -32,7 +36,7 @@ export default [
     fetchReqs: {
       delete: {
         type: 'DELETE',
-        sucessMessage: 'Your expense was deleted!',
+        successMessage: 'Your expense was deleted!',
         bodyParameter: 'expenseId',
         url: '/api/expenses'
       }

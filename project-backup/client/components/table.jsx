@@ -77,7 +77,6 @@ export default class Table extends React.Component {
                     showOptions={this.state.showOptions}
                     handleClick={this.handleClick.bind(this)}
                     className={`${arr.className.icon}`}
-                    onClick={this.props.setEditOrDeleteObj}
                     convertTime={this.convertTime} />
                     </div>
                 );
@@ -107,13 +106,13 @@ function RenderIcon(props) {
       handleClick={props.handleClick}
       convertTime={props.convertTime} /> */}
         <div className={`row menu-icon-cont ${props.className}`}>
-          <a href={props.page.deleteQuery} data={props.exp} className="menu-header-cont ">
-            <i data={props.exp} className="far fa-trash-alt"></i>
-            <p data={props.exp} className="form-label-txt">Delete</p>
+          <a onClick={props.setEditOrDeleteObj} href={props.page.deleteQuery} data={props.exp.expenseId} className="menu-header-cont ">
+            <i data={props.exp.expenseId} className="far fa-trash-alt"></i>
+            <p data={props.exp.expenseId} className="form-label-txt">Delete</p>
           </a>
-          <a href={props.page.editQuery} data={props.exp.expenseId} className="menu-header-cont">
-            <i data={props.exp.expenseId} className="far fa-edit"></i>
-            <p data={props.exp.expenseId} className="form-label-txt">Edit</p>
+          <a onClick={props.setEditOrDeleteObj} href={props.page.editQuery} data={props.exp.expenseId} className="menu-header-cont">
+            <i onClick={props.setEditOrDeleteObj} data={props.exp.expenseId} className="far fa-edit"></i>
+            <p onClick={props.setEditOrDeleteObj} data={props.exp.expenseId} className="form-label-txt">Edit</p>
         </a>
       </div>
       </>

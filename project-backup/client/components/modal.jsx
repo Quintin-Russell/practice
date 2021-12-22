@@ -5,8 +5,9 @@ export default class Modal extends React.Component {
 
   sendDeleteReq(e) {
     const delBodyParameter = this.props.page.fetchReqs.delete.bodyParameter;
+    const delBodyValue = this.props.editOrDeleteObj[delBodyParameter];
     const body = {
-      [delBodyParameter]: `${this.props.exp.expenseId}`
+      [delBodyParameter]: `${delBodyValue}`
     };
     const reqOptions = {
       method: 'DELETE',
@@ -19,8 +20,7 @@ export default class Modal extends React.Component {
     fetch(`${this.props.page.fetchReqs.delete.url}`, reqOptions)
       .then(result => {
         if (result.ok) {
-          window.alert(`${this.props.page.fetchReqs.delete.sucessMessage}`);
-          e.target.reset();
+          window.alert(`${this.props.page.fetchReqs.delete.successMessage}`);
         } else {
           window.alert('Whoops! Something went wrong. Please try again.');
         }
@@ -59,7 +59,7 @@ export default class Modal extends React.Component {
         <div className="exp-form-cont exp-form col">
 
           <h2 className='menu-txt'>Are You Sure?</h2>
-          <div className="table-header menu-icon-cont">
+            <div className="table-header modal-cont">
             {
               this.props.page.table.tableHeaders.map(item => {
                 if (this.props.page.table.tableHeaders.findIndex(index => index === item) < this.props.page.table.tableHeaders.length - 1) {
@@ -84,8 +84,8 @@ export default class Modal extends React.Component {
             <a href={this.props.page.hash}>
               <button className="sm-button">No</button>
             </a>
-            <a onClick={this.props.sendDeleteReq} href={this.props.page.hash}>
-              <button className="sm-button">Delete</button>
+            <a href={this.props.page.hash}>
+              <button onClick={this.sendDeleteReq.bind(this)} className="sm-button">Delete</button>
             </a>
           </div>
         </div>);

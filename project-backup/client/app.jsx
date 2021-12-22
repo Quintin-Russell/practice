@@ -15,16 +15,19 @@ export default class App extends React.Component {
     this.state = {
       userId: 1,
       route: parseRoute(window.location.hash),
-      page: pages.find(pg => pg.name === 'Home'),
+      page: pages.find(pg => pg.path === ''),
       showMenu: false,
       editOrDeleteObj: null,
-      defaultTimeFrame: 'Monthly'
+      defaultTimeFrame: 'Monthly',
+      pastExpenses: []
     };
   }
 
   setEditOrDeleteObj(e) {
     const tar = e.target.getAttribute('data');
-    this.setState({ setEditOrDeleteObj: parseInt(tar) });
+    console.log('e.target in set...Obj in app.jsx:', tar);
+    const editOrDeleteObj = this.state.pastExpenses.find(obj => obj.expenseId === parseInt(tar));
+    this.setState({ editOrDeleteObj });
   }
 
   renderPage() {
@@ -49,11 +52,16 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    window.addEventListener('hashchange', e => {
-      const route = parseRoute(window.location.hash);
-      const page = pages.find(pg => pg.path === route.path);
-      this.setState({ route, page });
-    });
+    fetch(`/api/expenses/${this.state.userId.toString()}`)
+      .then(result => result.json())
+      .then(resJson => {
+        window.addEventListener('hashchange', e => {
+          const route = parseRoute(window.location.hash);
+          const page = pages.find(pg => pg.path === route.path);
+          this.setState({ route, page, pastExpenses: resJson });
+        });
+      }
+      );
   }
 
   toggleMenu(e) {
