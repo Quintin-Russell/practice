@@ -36,7 +36,7 @@ export default class ExpenseForm extends React.Component {
               this.addEditValues();
               this.setState({ expense, spendingCategories, paymentMethods });
             } else {
-              this.setState({ newExp: false, expense, spendingCategories, paymentMethods, spendingCategory: spendingCategories[0].spendingCategoryId, paymentMethod: paymentMethods[0].paymentMethodId });
+              this.setState({ expense, spendingCategories, paymentMethods, spendingCategory: spendingCategories[0].spendingCategoryId, paymentMethod: paymentMethods[0].paymentMethodId });
             }
           });
       });
@@ -91,9 +91,9 @@ export default class ExpenseForm extends React.Component {
   }
 
   addEditValues() {
+
     if (this.props.editObj) {
-      const update = {
-      };
+      const update = {};
       const vals = {
         date: document.getElementById('date'),
         amount: document.getElementById('amount'),
@@ -166,6 +166,9 @@ export default class ExpenseForm extends React.Component {
     fetch('/api/expenses', reqOptions)
       .then(result => {
         if (result.ok) {
+          if (this.props.resetEditOrDeleteObj) {
+            this.props.resetEditOrDeleteObj();
+          }
           window.alert('Thanks for entering in your transaction!');
           e.target.reset();
         } else {
