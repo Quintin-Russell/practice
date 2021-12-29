@@ -75,11 +75,13 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
+
     window.addEventListener('hashchange', e => {
       const route = parseRoute(window.location.hash);
       const page = pages.find(pg => pg.path === route.path);
       this.setState({ route, page });
     });
+
   }
 
   setEditOrDeleteObj(editOrDeleteObj) {
