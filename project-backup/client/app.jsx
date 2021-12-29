@@ -35,23 +35,29 @@ export default class App extends React.Component {
       page={this.state.page}
       userId={this.state.userId}
       route={this.state.route} />;
+
     } else if (path === 'pastexpenses') {
       return (
+
       <PastExpenses
       route={this.state.route}
       userId={this.state.userId}
       setEditOrDeleteObj={this.setEditOrDeleteObj.bind(this)}
       page={this.state.page}
       />
+
       );
     } else if (path === 'accsettings') {
+
       return (
         <AccountSettings
         route={this.state.route}
         page={this.state.page} />
       );
+
     } else if (path === 'accsettings-setbudget') {
       return (
+
       <SetBudget
       setTimeFrame={this.setTimeFrame.bind(this)}
       timeFrame={this.state.timeFrame}
@@ -59,27 +65,34 @@ export default class App extends React.Component {
       page={this.state.page}
       route={this.state.route} />
       );
+
     } else if (path === 'accsettings-managepaymentmethods') {
+
       <PaymentMethods
       route={this.state.route}
       userId={this.state.userId}
       setEditOrDeleteObj={this.setEditOrDeleteObj.bind(this)}
       page={this.state.page} />;
+
     } else if (path === 'accsettings-managespendingcategories') {
+
       <SpendingCategories
       route={this.state.route}
       userId={this.state.userId}
       setEditOrDeleteObj={this.setEditOrDeleteObj.bind(this)}
       page={this.state.page} />;
+
     }
   }
 
   componentDidMount() {
+
     window.addEventListener('hashchange', e => {
       const route = parseRoute(window.location.hash);
       const page = pages.find(pg => pg.path === route.path);
       this.setState({ route, page });
     });
+
   }
 
   setEditOrDeleteObj(editOrDeleteObj) {
