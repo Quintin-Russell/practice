@@ -11,6 +11,9 @@ import Modal from './components/modal';
 import Home from './pages/home';
 import PastExpenses from './pages/past-expenses';
 import AccountSettings from './pages/acc-settings';
+import SetBudget from './pages/set-budget';
+import PaymentMethods from './pages/payment-methods';
+import SpendingCategories from './pages/spending-categories';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -21,8 +24,7 @@ export default class App extends React.Component {
       route: parseRoute(window.location.hash),
       page: pages.find(pg => pg.path === ''),
       showMenu: false,
-      editOrDeleteObj: null,
-      defaultTimeFrame: 'Monthly'
+      editOrDeleteObj: null
     };
   }
 
@@ -38,6 +40,7 @@ export default class App extends React.Component {
       <PastExpenses
       route={this.state.route}
       userId={this.state.userId}
+      setEditOrDeleteObj={this.setEditOrDeleteObj.bind(this)}
       page={this.state.page}
       />
       );
@@ -47,6 +50,27 @@ export default class App extends React.Component {
         route={this.state.route}
         page={this.state.page} />
       );
+    } else if (path === 'accsettings-setbudget') {
+      return (
+      <SetBudget
+      setTimeFrame={this.setTimeFrame.bind(this)}
+      timeFrame={this.state.timeFrame}
+      userId ={this.state.userId}
+      page={this.state.page}
+      route={this.state.route} />
+      );
+    } else if (path === 'accsettings-managepaymentmethods') {
+      <PaymentMethods
+      route={this.state.route}
+      userId={this.state.userId}
+      setEditOrDeleteObj={this.setEditOrDeleteObj.bind(this)}
+      page={this.state.page} />;
+    } else if (path === 'accsettings-managespendingcategories') {
+      <SpendingCategories
+      route={this.state.route}
+      userId={this.state.userId}
+      setEditOrDeleteObj={this.setEditOrDeleteObj.bind(this)}
+      page={this.state.page} />;
     }
   }
 
@@ -58,23 +82,27 @@ export default class App extends React.Component {
     });
   }
 
-  // componentDidMount w/ past exp fetch
-  // componentDidMount() {
-  //   fetch(`/api/expenses/${this.state.userId.toString()}`)
-  //     .then(result => result.json())
-  //     .then(resJson => {
-  //       window.addEventListener('hashchange', e => {
-  //         const route = parseRoute(window.location.hash);
-  //         const page = pages.find(pg => pg.path === route.path);
-  //         this.setState({ route, page, pastExpenses: resJson });
-  //       });
-  //     }
-  //     );
-  // }
+  setEditOrDeleteObj(editOrDeleteObj) {
+    this.setState({ editOrDeleteObj });
+  }
+
+  resetEditOrDeleteObj() {
+    this.setState({ editOrDeleteObj: null });
+  }
+
+  convertTime(dt) {
+    const time = new Date(dt);
+    const yr = time.getYear();
+    return `${time.getMonth()}-${time.getDate()}-${yr - 100}`;
+  }
 
   toggleMenu(e) {
     const curentShowMenu = this.state.showMenu;
     this.setState({ showMenu: !curentShowMenu });
+  }
+
+  setTimeFrame(val) {
+    this.setState({ timeFrame: [val] });
   }
 
   render() {
@@ -85,7 +113,8 @@ export default class App extends React.Component {
       page={this.state.page}
       convertTime={this.convertTime}
       userId={this.state.userId}
-      editOrDeleteObj={this.state.editOrDeleteObj} />
+      editOrDeleteObj={this.state.editOrDeleteObj}
+      resetEditOrDeleteObj={this.resetEditOrDeleteObj.bind(this)} />
 
       <Header
       toggleMenu={this.toggleMenu}

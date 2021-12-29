@@ -1,12 +1,9 @@
 import React from 'react';
 
-import Modal from './modal';
-
 export default class Table extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showOptions: null,
       arr: [],
       editOrDeleteObj: null
     };
@@ -16,11 +13,6 @@ export default class Table extends React.Component {
     fetch(`${this.props.page.fetchReqs.get.url}/${this.props.userId.toString()}`)
       .then(result => result.json())
       .then(resJson => this.setState({ arr: resJson }));
-  }
-
-  handleClick(e) {
-    const tar = e.target.getAttribute('data');
-    this.setState({ showOptions: parseInt(tar) });
   }
 
   convertTime(dt) {
@@ -33,11 +25,12 @@ export default class Table extends React.Component {
     const id = this.props.page.id;
     const tar = e.target.getAttribute('data');
     const editOrDeleteObj = this.state.arr.find(obj => obj[id] === parseInt(tar));
+    this.props.setEditOrDeleteObj(editOrDeleteObj);
     this.setState({ editOrDeleteObj });
   }
 
   resetEditOrDeleteObj(e) {
-    this.setState({ editOrDeleteObj: null });
+    this.props.resetEditOrDeleteObj();
   }
 
   renderHeaders() {
@@ -57,22 +50,6 @@ export default class Table extends React.Component {
     );
   }
 
-  renderModal() {
-    if (this.state.editOrDeleteObj) {
-      return (
-      <Modal
-        route={this.props.route}
-        page={this.props.page}
-        convertTime={this.convertTime.bind(this)}
-        userId={this.props.userId}
-        editOrDeleteObj={this.state.editOrDeleteObj}
-        resetEditOrDeleteObj={this.resetEditOrDeleteObj.bind(this)} />
-      );
-    } else {
-      return <></>;
-    }
-  }
-
   render() {
     const table = this.props.page.table;
     let counter = 1;
@@ -82,8 +59,7 @@ export default class Table extends React.Component {
     } else {
       return (
         <>
-        {this.renderModal()}
-      <div className="table-header menu-icon-cont">
+      <div className="table-header">
         { this.renderHeaders() }
         </div>
 
@@ -104,8 +80,6 @@ export default class Table extends React.Component {
                     userId={this.props.userId}
                     data={exp[id]}
                     setEditOrDeleteObj={this.setEditOrDeleteObj.bind(this)}
-                    // showOptions={this.state.showOptions}
-                    // handleClick={this.handleClick.bind(this)}
                     className={`${table.className.icon}`}
                     editOrDeleteObj={this.state.editOrDeleteObj}
                     convertTime= {this.convertTime} />
@@ -123,8 +97,6 @@ export default class Table extends React.Component {
                     exp={exp}
                     userId={this.props.userId}
                     data={exp[id]}
-                    // showOptions={this.state.showOptions}
-                    // handleClick={this.handleClick.bind(this)}
                     setEditOrDeleteObj={this.setEditOrDeleteObj.bind(this)}
                     editOrDeleteObj={this.state.editOrDeleteObj}
                     className={`${table.className.icon}`}

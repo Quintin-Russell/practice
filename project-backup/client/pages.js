@@ -120,16 +120,19 @@ export default [
     deleteQuery: null,
     fetchReqs: {
       get: {
-        type: 'GET',
-        url: null
+        url: '/api/users'
       },
       delete: {
-        type: 'DELETE',
         successMessage: null,
         bodyParameter: null,
         url: null
+      },
+      patch: {
+        successMessage: 'Your Budget was successfully updated!',
+        url: '/api/users'
       }
     },
+    wholepagecont: 'whole-pg-cont just-sp-bw-70vh',
     table: {
       tableHeaders: [],
       className: {
@@ -143,10 +146,11 @@ export default [
         edit: null,
         create: null
       },
-      toggleOptions: [],
+      toggleOptions: ['Week', 'Month', 'Year'],
       placeHolderTxt: {
-        Expense: null,
-        Deposit: null
+        Week: 'Enter Your Weekly Budgte Here',
+        Month: 'Enter Your Monthly Budget Here',
+        Year: 'Enter Your Yearly Budget Here'
       }
     },
     subPageHash: []
@@ -160,13 +164,13 @@ export default [
     footerIcon: false,
     menuIcon: false,
     id: null,
-    createQuery: null,
-    editQuery: null,
-    deleteQuery: null,
+    createQuery: '#accsettings-managepaymentmethods?funct=create',
+    editQuery: '#accsettings-managepaymentmethods?funct=edit',
+    deleteQuery: '#accsettings-managepaymentmethods?funct=delete',
     fetchReqs: {
       get: {
         type: 'GET',
-        url: null
+        url: '/api/paymentMethods/:userId'
       },
       delete: {
         type: 'DELETE',
@@ -177,11 +181,11 @@ export default [
     },
     wholepagecont: 'whole-pg-cont',
     table: {
-      tableHeaders: [],
+      tableHeaders: ['Payment Methods'],
       className: {
-        text: null,
-        icon: null,
-        divCont: null
+        text: 'flex-30',
+        icon: 'flex-10',
+        divCont: 'flex-40'
       }
     },
     formOptions: {

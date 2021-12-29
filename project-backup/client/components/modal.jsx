@@ -36,15 +36,11 @@ export default class Modal extends React.Component {
       if (funct === 'create') {
         return (
       <>
-        <div className="overlay">
-          <a href={this.props.page.hash} className="x-button">
-            <i className="far fa-times-circle"></i>
-          </a>
           <ExpenseForm
             page={this.props.page}
             userId={this.props.userId}
-            route={this.props.route} />
-        </div>
+            route={this.props.route}
+            resetEditOrDeleteObj={this.props.resetEditOrDeleteObj} />
       </>
 
         );
@@ -102,7 +98,7 @@ export default class Modal extends React.Component {
       return <></>;
     } else {
       return (
-      <div className="overlay">
+        <div onClick={this.props.resetEditOrDeleteObj} className="overlay just-align-center">
         <a href={this.props.page.hash} className="x-button">
           <i className="far fa-times-circle"></i>
         </a>

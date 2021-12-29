@@ -138,6 +138,9 @@ export default class ExpenseForm extends React.Component {
 
   onSubmit(e) {
     e.preventDefault();
+    if (!this.state.amount) {
+      return window.alert('Please enter an amount, payment method, spending category and comment');
+    }
     const body = {
       userId: `${this.props.userId}`,
       date: this.generateDate(),
@@ -195,7 +198,6 @@ export default class ExpenseForm extends React.Component {
           <Toggle
           page={this.props.page}
           handleToggleClick={this.handleToggleClick.bind(this)}
-          route={this.props.route}
           function={this.state.expense} />
         <h2 className="menu-txt">{this.whichFormOption('header')}</h2>
         <form
@@ -271,6 +273,7 @@ export default class ExpenseForm extends React.Component {
 
             <a href={this.props.page.hash}>
                     <button
+                    onClick={(this.props.resetEditOrDeleteObj) ? this.props.resetEditOrDeleteObj : null}
                     type="submit"
                     className="sm-button"
                     value="Done">
