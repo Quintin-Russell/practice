@@ -4,8 +4,7 @@ export default class Table extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      arr: [],
-      editOrDeleteObj: null
+      arr: []
     };
   }
 
@@ -15,10 +14,21 @@ export default class Table extends React.Component {
       .then(resJson => this.setState({ arr: resJson }));
   }
 
+  componentDidUpdate(oldProps, oldState) {
+    if (oldState.arr === this.state.arr) {
+      fetch(`${this.props.page.fetchReqs.get.url}/${this.props.userId.toString()}`)
+        .then(result => result.json())
+        .then(resJson => this.setState({ arr: resJson }));
+    }
+  }
+
   convertTime(dt) {
     const time = new Date(dt);
     const yr = time.getYear();
-    return `${time.getMonth()}-${time.getDate()}-${yr - 100}`;
+    const month = (time.getMonth() === 0)
+      ? '01'
+      : time.getMonth();
+    return `${month}-${time.getDate()}-${yr - 100}`;
   }
 
   setEditOrDeleteObj(e) {
@@ -26,7 +36,6 @@ export default class Table extends React.Component {
     const tar = e.target.getAttribute('data');
     const editOrDeleteObj = this.state.arr.find(obj => obj[id] === parseInt(tar));
     this.props.setEditOrDeleteObj(editOrDeleteObj);
-    this.setState({ editOrDeleteObj });
   }
 
   resetEditOrDeleteObj(e) {
@@ -50,25 +59,15 @@ export default class Table extends React.Component {
     );
   }
 
-  render() {
+  determineTable() {
     const table = this.props.page.table;
     let counter = 1;
     const id = this.props.page.id;
-    if (this.state.arr.length === 0) {
-      return <h1 className="menu-txt">Loading...</h1>;
-    } else {
-      return (
-        <>
-      <div className="table-header">
-        { this.renderHeaders() }
-        </div>
-
-        <div className="col table-cont">
-          {
-            this.state.arr.map(exp => {
-              if (counter % 2 === 1) {
-                counter++;
-                return (
+    if (this.props.route.path === 'pastexpenses') {
+      return this.state.arr.map(exp => {
+        if (counter % 2 === 1) {
+          counter++;
+          return (
                   <div data={exp[id]} key={exp[id].toString()} className='table-item shaded row'>
                   <p className={`table-txt ${table.className.text}`}>{this.convertTime(exp.date)}</p>
                   <p className={`table-txt ${table.className.text}`}>{`$${exp.amount}`}</p>
@@ -81,12 +80,12 @@ export default class Table extends React.Component {
                     data={exp[id]}
                     setEditOrDeleteObj={this.setEditOrDeleteObj.bind(this)}
                     className={`${table.className.icon}`}
-                    editOrDeleteObj={this.state.editOrDeleteObj}
+                    editOrDeleteObj={this.props.editOrDeleteObj}
                     convertTime= {this.convertTime} />
               </div>);
-              } else {
-                counter++;
-                return (
+        } else {
+          counter++;
+          return (
                   <div data={exp[id]} key={exp[id].toString()} className='table-item row'>
                     <p className={`table-txt ${table.className.text}`}>{this.convertTime(exp.date)}</p>
                     <p className={`table-txt ${table.className.text}`}>{`$${exp.amount}`}</p>
@@ -98,17 +97,70 @@ export default class Table extends React.Component {
                     userId={this.props.userId}
                     data={exp[id]}
                     setEditOrDeleteObj={this.setEditOrDeleteObj.bind(this)}
-                    editOrDeleteObj={this.state.editOrDeleteObj}
+                    editOrDeleteObj={this.props.editOrDeleteObj}
                     className={`${table.className.icon}`}
                     convertTime={this.convertTime} />
                     </div>
-                );
-              }
+          );
+        }
 
-            }
-            )
+      }
+      );
 
-          }
+    } else {
+      return this.state.arr.map(item => {
+        if (counter % 2 === 1) {
+          counter++;
+          return (
+            <div data={item[id]} key={item[id].toString()} className='table-item shaded row'>
+              <p className={`table-txt ${table.className.text}`}>{`${item.name}`}</p>
+              <RenderIcon
+                route={this.props.route}
+                page={this.props.page}
+                exp={item}
+                userId={this.props.userId}
+                data={item[id]}
+                setEditOrDeleteObj={this.setEditOrDeleteObj.bind(this)}
+                className={`${table.className.icon}`}
+                editOrDeleteObj={this.props.editOrDeleteObj}
+                convertTime={this.convertTime} />
+            </div>);
+        } else {
+          counter++;
+          return (
+            <div data={item[id]} key={item[id].toString()} className='table-item row'>
+              <p className={`table-txt ${table.className.text}`}>{`${item.name}`}</p>
+              <RenderIcon
+                route={this.props.route}
+                page={this.props.page}
+                exp={item}
+                userId={this.props.userId}
+                data={item[id]}
+                setEditOrDeleteObj={this.setEditOrDeleteObj.bind(this)}
+                editOrDeleteObj={this.props.editOrDeleteObj}
+                className={`${table.className.icon}`}
+                convertTime={this.convertTime} />
+            </div>
+          );
+        }
+
+      });
+    }
+  }
+
+  render() {
+
+    if (this.state.arr.length === 0) {
+      return <h1 className="menu-txt">Loading...</h1>;
+    } else {
+      return (
+        <>
+          <div className={(this.props.route.path === 'pastexpenses') ? 'table-header' : 'just-cent'}>
+        { this.renderHeaders() }
+        </div>
+
+        <div className="col table-cont">
+          { this.determineTable() }
         </div>
         </>
       );
