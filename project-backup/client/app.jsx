@@ -14,6 +14,8 @@ import AccountSettings from './pages/acc-settings';
 import SetBudget from './pages/set-budget';
 import PaymentMethods from './pages/payment-methods';
 import SpendingCategories from './pages/spending-categories';
+import Summary from './pages/summary';
+// import SummaryModal from './components/summary-modal';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -22,7 +24,7 @@ export default class App extends React.Component {
     this.state = {
       userId: 1,
       route: parseRoute(window.location.hash),
-      page: pages.find(pg => pg.path === ''),
+      page: pages.find(pg => pg.path === parseRoute(window.location.hash).path),
       showMenu: false,
       editOrDeleteObj: null
     };
@@ -38,17 +40,16 @@ export default class App extends React.Component {
 
     } else if (path === 'pastexpenses') {
       return (
-
       <PastExpenses
       route={this.state.route}
       userId={this.state.userId}
+      editOrDeleteObj={this.state.editOrDeleteObj}
+      resetEditOrDeleteObj={this.resetEditOrDeleteObj.bind(this)}
       setEditOrDeleteObj={this.setEditOrDeleteObj.bind(this)}
       page={this.state.page}
       />
-
       );
     } else if (path === 'accsettings') {
-
       return (
         <AccountSettings
         route={this.state.route}
@@ -57,7 +58,6 @@ export default class App extends React.Component {
 
     } else if (path === 'accsettings-setbudget') {
       return (
-
       <SetBudget
       setTimeFrame={this.setTimeFrame.bind(this)}
       timeFrame={this.state.timeFrame}
@@ -67,21 +67,34 @@ export default class App extends React.Component {
       );
 
     } else if (path === 'accsettings-managepaymentmethods') {
-
+      return (
       <PaymentMethods
       route={this.state.route}
       userId={this.state.userId}
+      editOrDeleteObj={this.state.editOrDeleteObj}
       setEditOrDeleteObj={this.setEditOrDeleteObj.bind(this)}
-      page={this.state.page} />;
+      resetEditOrDeleteObj={this.resetEditOrDeleteObj.bind(this)}
+      page={this.state.page} />
+      );
 
     } else if (path === 'accsettings-managespendingcategories') {
-
+      return (
       <SpendingCategories
       route={this.state.route}
       userId={this.state.userId}
+      editOrDeleteObj={this.state.editOrDeleteObj}
       setEditOrDeleteObj={this.setEditOrDeleteObj.bind(this)}
-      page={this.state.page} />;
+      resetEditOrDeleteObj={this.resetEditOrDeleteObj.bind(this)}
+      page={this.state.page} />
+      );
 
+    } else if (path === 'summary') {
+      return (
+        <Summary
+        page={this.state.page}
+        route={this.state.route}
+        userId={this.state.userId} />
+      );
     }
   }
 
@@ -94,6 +107,12 @@ export default class App extends React.Component {
     });
 
   }
+
+  // setSummaryStatistics(e) {
+  //   const newStat = e.target.getAttribute('data');
+  //   const summaryStatistics = [...this.state.summaryStatistics, newStat];
+  //   this.setState({ summaryStatistics });
+  // }
 
   setEditOrDeleteObj(editOrDeleteObj) {
     this.setState({ editOrDeleteObj });
@@ -119,8 +138,13 @@ export default class App extends React.Component {
   }
 
   render() {
-    return (
+    return (this.state.page)
+      ? (
     <>
+      {/* <SummaryModal
+      route={this.state.route}
+      setSummaryStatistics={this.setSummaryStatistics.bind(this)} /> */}
+
       <Modal
       route={this.state.route}
       page={this.state.page}
@@ -143,6 +167,12 @@ export default class App extends React.Component {
        <Footer
         pages={pages}
         route={this.state.route} />
-      </>);
+      </>)
+
+      : (
+        <div className="just-cent">
+          <h2 className="menu-txt">Loading...</h2>
+        </div>
+        );
   }
 }

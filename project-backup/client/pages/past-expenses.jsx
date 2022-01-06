@@ -9,6 +9,8 @@ export default class PastExpenses extends React.Component {
         <Table
         route={this.props.route}
         userId={this.props.userId}
+        editOrDeleteObj={this.props.editOrDeleteObj}
+        resetEditOrDeleteObj={this.props.resetEditOrDeleteObj}
         setEditOrDeleteObj={this.props.setEditOrDeleteObj}
         page={this.props.page} />
       </>
