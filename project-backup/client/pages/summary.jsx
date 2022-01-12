@@ -1,9 +1,10 @@
 import React from 'react';
-import ApexCharts from 'apexcharts';
-import { convertBudget, functList } from '../summary-funct';
+
+import { convertBudget, setCategoryGraphInfo, functList, budgetPercent, setAllCategoryColGraphInfo, setDonutInfo } from '../summary-funct';
 
 import Dropdown from '../components/dropdown';
 import Toggle from '../components/toggle';
+import Chart from 'react-apexcharts';
 
 export default class Summary extends React.Component {
   constructor(props) {
@@ -11,8 +12,10 @@ export default class Summary extends React.Component {
     this.state = {
       monthlyBudget: null,
       timeFrame: 'Month',
-      arr: [],
-      spendingCategories: []
+      arr: [0, 1, 2],
+      spendingCategories: [],
+      graph: null,
+      options: {}
     };
   }
 
@@ -32,13 +35,18 @@ export default class Summary extends React.Component {
       });
   }
 
-  componentDidUpdate(oldProps, oldState) {
-    if (oldState !== this.state) {
-      const budgetPercent = functList.find(fun => fun.name === '% of Budget Spent');
+  setGraph() {
+    let options;
+    let series;
+    let type;
 
-      const series = (this.state.arr)
-        ? budgetPercent.funct(this.state.arr, this.state.timeFrame, this.state.monthlyBudget)
-        : 0;
+    const percentBudget = budgetPercent(this.state.arr, this.state.timeFrame, this.state.monthlyBudget);
+
+    if (!this.state.graph || this.state.graph === 'a') {
+
+      type = 'radialBar';
+
+      series = [percentBudget];
 
       const quickViewColor = (series >= 100)
         ? { startFade: ['#C3326F'], endFade: ['#FF532F'] }
@@ -46,13 +54,8 @@ export default class Summary extends React.Component {
             ? { startFade: ['#F2BF6C'], endFade: ['#EDE342'] }
             : { startFade: ['#20c3e660'], endFade: ['#44aa4490'] };
 
-      const options = {
-        chart: {
-          height: 300,
-          type: 'radialBar'
-        },
-
-        series: [series],
+      options = {
+        chart: { height: '375vh' },
         colors: quickViewColor.startFade,
         plotOptions: {
           radialBar: {
@@ -97,11 +100,143 @@ export default class Summary extends React.Component {
         },
         labels: [`${this.state.timeFrame}ly Budget Spent`]
       };
+    } else if (this.state.graph === 'c') {
 
-      const chart = new ApexCharts(document.querySelector('#chart'), options);
+      series = setDonutInfo(this.state.spendingCategories, 'spendingCategoryId', this.state.arr, this.state.timeFrame).values;
 
-      chart.render();
+      type = 'donut';
+
+      options = {
+        chart: {
+          type: 'donut'
+        },
+        plotOptions: {
+          pie: {
+            donut: {
+              size: '70%'
+            },
+            labels: {
+              show: true
+            }
+          }
+        },
+        labels: setDonutInfo(this.state.spendingCategories, 'spendingCategoryId', this.state.arr, this.state.timeFrame).categories,
+        title: {
+          text: 'Spending Breakdown By Spending Category'
+        },
+        states: {
+          hover: {
+            filter: 'none'
+          }
+        }
+      };
+    } else {
+
+      const nameVal = (this.state.timeFrame === 'Year')
+        ? 'Monthly Spending'
+        : 'Daily Spending';
+
+      const lineColor = (percentBudget >= 100)
+        ? '#FF532F'
+        : (percentBudget > 90 && percentBudget < 100)
+            ? '#EDE342'
+            : '#C5EDAC';
+
+      type = 'line';
+
+      series = [
+        {
+          name: nameVal,
+          type: 'column',
+          data: (this.state.graph === 'b')
+            ? setAllCategoryColGraphInfo(this.state.arr, this.state.timeFrame, this.state.monthlyBudget).unitSpending
+            : setCategoryGraphInfo(this.state.arr, this.state.timeFrame, this.state.monthlyBudget, this.state.graph).unitSpending
+        },
+        {
+          name: 'Total Spending',
+          type: 'line',
+          data: (this.state.graph === 'b')
+            ? setAllCategoryColGraphInfo(this.state.arr, this.state.timeFrame, this.state.monthlyBudget).totalSpending
+            : setCategoryGraphInfo(this.state.arr, this.state.timeFrame, this.state.monthlyBudget, this.state.graph).totalSpending
+        },
+        {
+          name: 'Budget',
+          type: 'line',
+          data: (this.state.graph === 'b')
+            ? setAllCategoryColGraphInfo(this.state.arr, this.state.timeFrame, this.state.monthlyBudget).budgetArr
+            : setCategoryGraphInfo(this.state.arr, this.state.timeFrame, this.state.monthlyBudget, this.state.graph).budgetArr
+        }
+      ];
+
+      options = {
+        chart: {
+          height: 350,
+          stacked: false
+        },
+        dataLabels: {
+          enabled: false
+        },
+        colors: ['#99C2A2', lineColor, '#66C7F4'],
+        stroke: {
+          width: [4, 4, 4]
+        },
+        plotOptions: {
+          bar: {
+            columnWidth: '20%'
+          }
+        },
+        xaxis: {
+          categories: (this.state.graph === 'b')
+            ? setAllCategoryColGraphInfo(this.state.arr, this.state.timeFrame, this.state.monthlyBudget).xaxis
+            : setCategoryGraphInfo(this.state.arr, this.state.timeFrame, this.state.monthlyBudget, this.state.graph).xaxis
+        },
+        yaxis: [
+          {
+            seriesName: nameVal,
+            axisTicks: {
+              show: true
+            },
+            axisBorder: {
+              show: true
+            },
+            title: {
+              text: 'Spending'
+            }
+          },
+          {
+            opposite: true,
+            seriesName: (this.state.timeFrame === 'Week') ? nameVal : 'Total Spending',
+            axisTicks: {
+              show: true
+            },
+            axisBorder: {
+              show: true
+            },
+            title: {
+              text: 'Total Spending'
+            }
+          },
+          {
+            seriesName: (this.state.timeFrame === 'Week') ? nameVal : 'Total Spending',
+            show: false
+          }
+        ],
+        tooltip: {
+          shared: false,
+          intersect: true,
+          x: {
+            show: false
+          }
+        },
+        legend: {
+          horizontalAlign: 'left',
+          offsetX: 40
+        }
+      };
     }
+
+    const retVal = { options, series, type };
+    return retVal;
   }
 
   handleToggleClick(e) {
@@ -110,54 +245,83 @@ export default class Summary extends React.Component {
   }
 
   change(e) {
-    const name = e.target.name;
     const val = e.target.value;
-    this.setState({ [name]: val });
+    this.setState({ graph: val });
+  }
+
+  setDropdownArr() {
+
+    const obj1 = {
+      name: 'Quick View',
+      spendingCategoryId: 'a'
+    };
+
+    const obj2 = {
+      name: 'All Categories',
+      spendingCategoryId: 'b'
+    };
+
+    const obj3 = {
+      name: 'By Category',
+      spendingCategoryId: 'c'
+    };
+
+    return [...this.state.spendingCategories, obj1, obj2, obj3];
   }
 
   render() {
-    return (
+    if (!this.state.options || !this.state.arr || !this.state.spendingCategories) {
+      return <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>;
+    } else {
+      const header = (this.state.graph === 'a' || !this.state.graph)
+        ? 'Summary Quick View'
+        : 'Categorical Summary';
+      return (
       <>
         <div className="padding-1rem row just-align-center">
           <div className="col just-align-center budget-width">
-          <Toggle
-            page={this.props.page}
-            handleToggleClick={this.handleToggleClick.bind(this)}
-            route={this.props.route}
-            function={this.state.timeFrame} />
-          <div className="col budget-width">
-            <h5 className='text-center summary-dropdown-title oswald-semi-bld'>Spending Categories</h5>
-            <Dropdown
-              selectedVal=''
-              handler={this.change.bind(this)}
-              name="spendingCategory"
-              id="spendingCategory"
-              className="form-input"
-              arr={this.state.spendingCategories}
-              primaryKey="spendingCategoryId" />
+            <Toggle
+              page={this.props.page}
+              handleToggleClick={this.handleToggleClick.bind(this)}
+              route={this.props.route}
+              function={this.state.timeFrame} />
+            <div className="col budget-width">
+              <h5 className='text-center summary-dropdown-title oswald-semi-bld'>Graphed by:</h5>
+              <Dropdown
+                selectedVal='a'
+                handler={this.change.bind(this)}
+                name="graph"
+                id="spendingCategory"
+                className="form-input"
+                arr={this.setDropdownArr()}
+                primaryKey="spendingCategoryId" />
+            </div>
           </div>
-        </div>
-        {/* <a href={this.props.page.showModalQuery}>
-          <i className="fas fa-th"></i>
-        </a> */}
 
-      </div>
+        </div>
         <div className="exp-form-cont margin-0-cent col">
-        <h1 className="menu-txt">Summary Quick View</h1>
-        <div id="chart"></div>
+          <h1 className="menu-txt">{header}</h1>
+
+          <div id="chart">
+            <Chart
+            options={this.setGraph().options}
+            series={this.setGraph().series}
+            type={this.setGraph().type}
+            width='100%' />
+          </div>
           <div className=" col summary-info-cont">
             <p className="text-center oswald-norm">
               {`Your ${this.state.timeFrame}ly Budget: $${convertBudget(this.state.timeFrame, this.state.monthlyBudget)}`}
             </p>
             {functList.map(funct => {
               return (<p key={funct.name} className="text-center oswald-norm">
-               {funct.name}: {funct.funct(this.state.arr, this.state.timeFrame, this.state.monthlyBudget)}
+                {funct.name}: {`$${funct.funct(this.state.arr, this.state.timeFrame, this.state.monthlyBudget)}`}
               </p>);
             })}
-          </div>
-      </div>
+           </div>
+         </div>
       </>
-
-    );
+      );
+    }
   }
 }
