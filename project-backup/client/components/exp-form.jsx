@@ -132,10 +132,8 @@ export default class ExpenseForm extends React.Component {
           update.paymentMethod = paymentMethod;
           vals.paymentMethod.value = paymentMethod;
         } else if (item === 'spendingCategoryId') {
-          // const spendingCategory = this.props.editObj[item];
           update.spendingCategory = this.props.editObj[item];
           vals.spendingCategory.selected = true;
-          // vals.spendingCategory.value = this.props.editObj[item];
         }
       }
       this.setState(update);
@@ -235,7 +233,7 @@ export default class ExpenseForm extends React.Component {
               className="form-input"
               name="amount"
               id="amount"
-              placeholder={this.whichFormOption('placeHolderTxt', [this.state.expense])}
+              placeholder={this.whichFormOption('placeHolderTxt', this.state.expense)}
               type="number"
               step='0.01'></input>
                 </label>
