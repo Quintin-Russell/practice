@@ -1,3 +1,5 @@
+commitCode=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
+
 Scenario
 Your task is to implement a simplified version of text editor.
 All operations that should be supported are listed below. Partial credit will be given for each implemented operation. Please submit often to ensure partial credits are captured.
