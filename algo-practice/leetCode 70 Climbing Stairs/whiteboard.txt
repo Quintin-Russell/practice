@@ -1,0 +1,15 @@
+2 vars: n = step # and m = max number of steps you can go at one time
+
+1) initialize an array of length n and fill it w/ placeholders
+2) initialize:
+  -a running sum variable
+  -the value at index 0 = 1
+3) for loop starting at index 1:
+  * for each index of the array:
+    -initialize 2 variables
+      -- s = index - max # of steps at once - 1
+      -- e = index - 1
+    -check if s >= 0 => subtract array[s] from running sum
+    -add array[e] to running sum
+
+return the last element of the array
