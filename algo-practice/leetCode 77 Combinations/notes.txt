@@ -1,0 +1,22 @@
+Video link: https://www.youtube.com/watch?v=gx0hB85lgiQ
+
+-possible solutions = 2^n
+  -in logic tree, each level is binary; either includes or excludes
+  number to form combinations
+
+Walk method: range from 1 to n and you are allowed to take n steps
+--------------------------------------------------
+1) generate array all possible numbers from 1 to n and empty result array
+  -const nums = Array(n).fill(0).map(x => x+1)
+
+2)generate self calling function that takes 2 arrays as parameters
+  a) 1 array = 'target'/desired value to get all combos from;
+  array 2: all other values other than 'target'
+  b)if array1.length === k, push to result array
+  c) itterates thru the arrays and for each index:
+    -self calls function on:
+    array 1: adds array2[i] to array1
+    array2: shallow copy of array2 that goes from i + 1 to end
+3) call function with empty target array (array1) and all possible
+numbers array
+4) return the result array
