@@ -1,0 +1,15 @@
+Linked list = NOT AN ARRAY
+  --dynamic size
+  --efficient insertion and deletion
+  --no random access
+  --no waste of memory
+  --each member of a linked list = an obj;
+    -2 properties: data and next
+      --data = value
+      --next = the next box in the linked list
+  --connections go in 1 direction, but not the other
+    --can find next member easily, but hard to find the previous
+iteratively:
+-itterate through the rray of length n using a traditional for loop
+  *for each:
+    --ad OGarr[i] to newArr[-x-1]
