@@ -9,6 +9,11 @@
     -initialize 2 variables
       -- s = index - max # of steps at once - 1
       -- e = index - 1
+    if the previous index - the max # of steps > 0, we want to subtract
+    the array at that index from the running sum
+
+    we then add the previous index to the running sum and assign that to the
+    array at the current index
     -check if s >= 0 => subtract array[s] from running sum
     -add array[e] to running sum
 
