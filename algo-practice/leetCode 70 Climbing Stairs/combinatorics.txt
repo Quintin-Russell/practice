@@ -1,0 +1,13 @@
+reference: https://www.youtube.com/watch?v=NA2Oj9xqaZQ
+
+common ?s: given n things, how many combinations can we make;
+  how many ways can we do x; shortest way to do x
+-all possible combos = 2**n
+  --base 2 bc all decisions on logic tree are binary: either include
+    or not
+-base case: smallest case of input where "you already know the answer"
+  --ex) empty array
+  --check for base case at beginning: return [] if input.length === 0
+1) grab first elment of arr and assign to variable
+2) slice arr and assign returned arr to a varible
+3) find combos w/ sliced arr w/ arr; find combos w/out first
