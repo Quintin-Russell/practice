@@ -14,3 +14,9 @@ iteratively:
 -set a previous and next variable to null to keep track of values
 -set up while loop: while next !== null
 -store currentNode.next in next
+-set currentNode.next to previous (previous will be null for the tail)
+-previous = head
+-head = next
+
+-return prev; because the 'list' is stored in the next property of previous
+(aka the tail)
