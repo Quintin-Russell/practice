@@ -1,0 +1,5 @@
+itterative approach
+
+1) length = 1 handling
+  -- return array
+**double for loop**
