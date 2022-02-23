@@ -1,0 +1,3 @@
+-thinking of the number of seats that i will be blocking as a 2d square
+  --length = #cols from my seat to exit = nCols-col
+  --height = #rows behind me = nRows-row-1
