@@ -1,0 +1,3 @@
+-radially opposite index = index of num + n/2
+
+-create array using `.from()` and '.keys()' method: n
