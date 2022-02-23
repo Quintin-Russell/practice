@@ -1,0 +1,11 @@
+-conditions:
+  --N divisible by divisor
+  --N <= bound
+  --N > 0
+
+-set 2 variables = 1: counter and ret
+-set up while loop: (while ret <= bound) multiply counter by
+divisor check counter*divisor is still
+<= bound
+    -- if (counter*divisor > bound) ? return ret
+          : ret = counter*divisor && counter++
