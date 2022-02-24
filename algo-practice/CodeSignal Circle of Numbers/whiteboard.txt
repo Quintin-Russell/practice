@@ -1,3 +1,11 @@
 -radially opposite index = index of num + n/2
 
 -create array using `.from()` and '.keys()' method: n
+  --Array.from() = creates an array from an itterable obj
+  --Array(n).keys() = creates array from 0 to n-1
+  == Array.from(Array(n).keys) = creates an array from the itterable obj
+    created from .keys()
+
+if # < n/2
+--return arr[#+n/2]
+else return arr[#-n/2]
