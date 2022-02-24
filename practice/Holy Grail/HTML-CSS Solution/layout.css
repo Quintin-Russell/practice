@@ -1,0 +1,29 @@
+.row {
+  display: flex;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+.center {
+  justify-content: center;
+  align-items: center;
+}
+
+.height25 {
+  height:25%
+}
+
+.height50{
+height: 50%
+}
+
+.width25 {
+  flex-basis: 25%;
+}
+
+.width50 {
+  flex-basis: 50%;
+}
