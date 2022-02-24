@@ -1,5 +1,10 @@
+.flex {
+  display: flex;
+}
+
 .row {
   display: flex;
+  flex-direction: row;
 }
 
 .col {
@@ -26,4 +31,8 @@ height: 50%
 
 .width50 {
   flex-basis: 50%;
+}
+
+.img {
+  width: 10rem
 }
