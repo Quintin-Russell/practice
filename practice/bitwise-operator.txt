@@ -1,0 +1,16 @@
+resources:
+https://www.programiz.com/javascript/bitwise-operators
+https://blog.logrocket.com/interesting-use-cases-for-javascript-bitwise-operators/
+
+-treat operands as 32-bit binary digits
+--notes about 32-bit digits:
+  *1st digit:
+  ** positive: 0
+  ** negative: 1
+
+  *right-most bit (aka least significant bit) is used to determine if a digit is even or odd
+  ** odd: (int & 1) === 1
+  ** even: (int & 1) === 0
+
+-how to truncate decimals with | operator
+  -- 13.6 => ~~13.6 = 13 OR 13.6 | 0 = 13
