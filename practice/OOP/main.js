@@ -13,3 +13,20 @@ Shape.prototype.calcPerimeter = function () {
 const shape = new Shape('square', 4, 10)
 
 console.log('calcPerimerter:', shape.calcPerimeter())
+
+class Square extends Shape {
+  constructor(sideLength) {
+    super(sideLength)
+    this.name = 'square';
+    this.sideLength = sideLength;
+    this.sides = 4;
+  }
+}
+
+Square.prototype.calcArea = function() {
+  return this.sideLength**2
+}
+
+const sq = new Square(15)
+
+console.log('calcArea:', sq.calcArea())
