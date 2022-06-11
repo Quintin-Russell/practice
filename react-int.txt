@@ -1,42 +1,73 @@
 link: https://www.simplilearn.com/tutorials/reactjs-tutorial/reactjs-interview-questions
 
 1. What are the features of React?
-
+use  of state: able to rerender individual pieces of a page without having to rerender the entire page
+virtual DOM: a lightweight copy of the actual DOM that react uses to register changes and determine re-rendering
+JSX: pseudo-language that is used to creat HTML elements with JS
+----------------
+Components: splits webpage into independent, reusable pieces that can be processed seperately
+virtual DOM: a lightweight copy of the actual DOM that react uses to register changes and determine re-rendering OF INDIVIDUAL COMPONENTS
+one-way data binding- unidirectional flow of data (parent>child)
 
 2. What is JSX?
+JSX: pseudo-language that is used to create HTML elements with JS
 
 
 
 3. Can web browsers read JSX directly?
-
+No, web browsers need an interpreter plug-in that converts JSX to HTML elements
 
 
 4. What is the virtual DOM?
-
+the virtual DOM is a lightweightcopy of the actual DOM. When a change is made to a React component (ie a state change) the virtual DOM is changed.
+React compares the virtual DOM to the actual DOM and will only update the actual DOM with the changes made to the virtual DOM
 
 
 5. Why use React instead of other frameworks, like Angular?
 
+-----------------
+Easy creation of dynamic applications: React makes it easier to create dynamic web applications because it provides less coding and provides more functionality, whereas,
+with JavaScript applications, code tends to get complex very quickly.
 
 
+Improved performance: React uses virtual DOM, which makes web applications perform faster. Virtual DOM compares its previous state and updates only those components in
+the real DOM, whose states have changed, rather than updating all the components — like conventional web applications.
+
+Reusable components: Components are the building blocks of any React application, and a single app usually consists of multiple components. These components have their own
+logic and controls, and they can be reused through the application, which, in turn, dramatically reduces the development time of an application.
+
+Unidirectional data flow: React follows a unidirectional data flow. This means that when designing a React app, we often nest child components within parent components. And
+since the data flows in a single direction, it becomes easier to debug errors and know where the problem occurs in an application at the moment.
+
+Dedicated tools for easy debugging: Facebook has released a chrome extension that we can use to debug React applications. This makes the process of debugging React to web
+applications faster and easier.
 
 6. What is the difference between the ES6 and ES5 standards?
+Arrow functions
+spread operator
+Promise
 
-
+---------------
+require (ES5) vs import (ES6)
+export
 
 
 7. How do you create a React app?
+most efficient to use Node package via npm (ex create-react-app)
 
 
 
 
 8. What is an event in React?
+an event is any change that indicates a user interaction or system event
 
+---------
+JSX events use camelCase (HTML use kebob-case)
 
 
 
 9. How do you create an event in React?
-
+apply an event listener to the desired JSX element
 
 
 
@@ -46,8 +77,8 @@ link: https://www.simplilearn.com/tutorials/reactjs-tutorial/reactjs-interview-q
 
 
 
-11. Explain how lists work in React
-
+11. Explain how lists (UL and OL) work in React
+lists can be rendered from array using the .map() method. they can also be produced manually in the same way as vanilla JS
 
 
 
