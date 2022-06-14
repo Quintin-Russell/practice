@@ -83,22 +83,29 @@ lists can be rendered from array using the .map() method. they can also be produ
 
 
 12. Why is there a need for using keys in Lists?
+-----------------
+A key is a unique identifier and it is used to identify which items have changed, been updated or deleted from the lists
+It also helps to determine which components need to be re-rendered instead of re-rendering all the components every time. Therefore, it increases performance, as only the
+updated components are re-rendered
 
-
+keys = unique identifiers that help React determine which components need to be rerendered
 
 
 13. What are forms in React?
-
+forms take are a way to collect and process user inputed data
 
 
 
 15. How do you write comments in React?
-
+{/* ______ */}
 
 
 
 16. What is an arrow function and how is it used in React?
+an arrow function is a shorthand way to create a function. they can be stored in constant/mutable variables
 
+----------
+don't need to use 'this' in arrow functions
 
 
 
