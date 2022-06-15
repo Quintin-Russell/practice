@@ -1,19 +1,39 @@
-/*
-str_a: "aaaabbc"
-str_b: "aacbbabc"
+//n = str1.len
+//m = str2.len
 
-a a a a b b c
-i
+const rounds = (str1, str2) => {
+  let counter = 0
+  let i = 0
+  let j = 0
 
-a a c  b  b a b c
-j
+  const str1Chars = {}
+  for (const char of str1) {
+    if (!str1Chars[char]) str1Chars[char] = 1
+  }
 
-chars = {
+  while (j < str2.length) {
+    if (!str1Chars[str2[j]]) return -1
 
+    if (str1[i] === str2[j]) {
+      j++
+      i++
+      if (i === str1.length) {
+        counter++
+        i = 0
+      }
+    };
+
+    if (str1[i] !== str2[j]) { i++ };
+
+    if (i === str1.length) {
+      counter++
+      i = 0
+    }
+  }
+
+
+  return counter;
 }
 
-subproblem:
-  is strb[j] in chars
-    is chars[strb[j]] the end char of stra
-    j++
-*/
+
+console.log(rounds("sssssssr", "rrrrrrrrr"))

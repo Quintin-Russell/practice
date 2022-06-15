@@ -13,24 +13,27 @@ Example:
 str_a: "aaaabbc"
 str_b: "aacbbabc"
 
-"a"
+----------------------------
+1)
+a a a a b b c 8 a a a a b b c 8 a a a a b b c 8 a a a a b b c
+            |
 
-"aaaaa"
+aacbbabc
+       ^
+-------------------------------------
+2)
+a a a a b b c
+        |
 
+str1Chars = {
+  a = 1
+  b = 1
+}
+_____________________________________
 
 the answer is 3.
 
-a a a a b b c
-  i
-
-aacbbabc
-  j
-
-1: aac
-2: aacbb
-3: aacbbabc
-
-simple itteration: time complexity: O(m^n) space: O(1)
+simple itteration: time complexity: O(m*n) space: O(n)
 
 n=len(str_a)
 m= len(str_b)
@@ -52,10 +55,12 @@ const numOfRounds = (str_a, str_b) => {
    const str_aChars = {}
    for (const i of str_a) {
     if (!str_aChars[i]) str_aChars[i] = 1
+
    }
    let i = 0
    let j = 0
    let roundCount = 0
+
    if (j === 0 && !str_aChars[str_b[j]]) return null
 
   while (j < str_b.length) {
