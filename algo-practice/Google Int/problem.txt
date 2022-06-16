@@ -21,11 +21,16 @@ constraints:
 
 ----------------------------
 1)
-a a a a b b c 8 a a a a b b c 8 a a a a b b c 8 a a a a b b c
+a a a a b b c
             |
 
+a a c b b a b c
+              ^
+
 aacbbabc
-       ^
+
+numberOfRounds = 3
+
 -------------------------------------
 2)
 a a a a b b c
@@ -36,6 +41,31 @@ str1Chars = {
   b = 1
 }
 _____________________________________
+idx = 2
+
+str_aChars= {
+  a: indicies: {
+    1,
+    4,
+    5
+  }
+}
+
+
+in str_a chars: store indicies of char occurence => itterate thru str_b
+and keep track of index =>
+if str_aChars[char].indicies =>
+    find min of indicies >= idx
+      if null
+        ? reset idx, numOfRounds++, search again
+        : idx = min(indicies > idx)
+
+
+
+
+
+
+
 
 the answer is 3.
 
@@ -83,3 +113,11 @@ const numOfRounds = (str_a, str_b) => {
    }
    return roundCount
 }
+
+numOfRounds = 1
+
+a x x d b c
+i
+
+a a c b b d x b
+            ====>
