@@ -29,3 +29,11 @@ PART 3
         -if 0, numOfRounds doesnt change
 
 RETURN numOfROunds
+
+
+  a a a b b c e _
+          i
+
+
+  a a c e b b a b c
+      |
