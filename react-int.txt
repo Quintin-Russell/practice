@@ -122,6 +122,19 @@ don't need to use 'this' in arrow functions
 
 
 19. What are the components in React?
+components are reusable piecs of code that serve a certain purpose. They can internally manage thier own state.
+--------------------------------
+Components are the building blocks of any React application, and a single app usually consists of multiple components. A component is essentially a piece of the user interface. It splits the user interface into independent, reusable parts that can be processed separately.
+
+functional and class components
+
+functional: no state, except with hooks
+  no use of this
+
+class: stateful
+  use this and binding
+  can define internal methods
+  to use state, must use constructor
 
 
 
