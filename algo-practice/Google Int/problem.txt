@@ -1,0 +1,123 @@
+/*
+
+Construct string from another
+
+Given two strings, str_a and str_b, compute the minimal
+number of rounds it takes to construct str_b incrementally
+by concatenating subsequences of str_a. Note: Unlike a
+"substring", a "subsequence" doesn't have to consist of
+consecutive characters.
+
+Example:
+
+str_a: "aaaabbc"
+str_b: "aacbbabc"
+
+constraints:
+-strings are not alphabetically ordered
+-capital letters can exist
+-only characters (no numbers)
+-str_a and str_b are always provided
+
+----------------------------
+1)
+a a a a b b c
+            |
+
+a a c b b a b c
+              ^
+
+aacbbabc
+
+numberOfRounds = 3
+
+-------------------------------------
+2)
+a a a a b b c
+        |
+
+str1Chars = {
+  a = 1
+  b = 1
+}
+_____________________________________
+idx = 2
+
+str_aChars= {
+  a: indicies: {
+    1,
+    4,
+    5
+  }
+}
+
+
+in str_a chars: store indicies of char occurence => itterate thru str_b
+and keep track of index =>
+if str_aChars[char].indicies =>
+    find min of indicies >= idx
+      if null
+        ? reset idx, numOfRounds++, search again
+        : idx = min(indicies > idx)
+
+
+
+
+
+
+
+
+the answer is 3.
+
+simple itteration: time complexity: O(m*n) space: O(n)
+
+n=len(str_a)
+m= len(str_b)
+
+subproblem:
+while (j <= str_b.length - 1)
+  if (str_a[i] !in str_aChars) ? add str_a[i]: 1
+  str_a[i] === str_b[j]
+    ? j++, check if str_b[j] in str_aChars
+    : i++
+  when i = str_a.length - 1 => roundCount++, i = 0
+
+base cases:
+  -always provided a, b
+  -return null if str_b[i] !in str_a
+*/
+
+const numOfRounds = (str_a, str_b) => {
+   const str_aChars = {}
+   for (const i of str_a) {
+    if (!str_aChars[i]) str_aChars[i] = 1
+
+   }
+   let i = 0
+   let j = 0
+   let roundCount = 0
+
+   if (j === 0 && !str_aChars[str_b[j]]) return null
+
+  while (j < str_b.length) {
+    if (str_a[i] === str_b[j]) {
+      j++
+      if (!str_aChars[str_b[j]]) return null
+    } else {
+      i++
+      if (i === str_a.length) {
+        roundCount++
+        i = 0
+      }
+    }
+   }
+   return roundCount
+}
+
+numOfRounds = 1
+
+a x x d b c
+i
+
+a a c b b d x b
+            ====>

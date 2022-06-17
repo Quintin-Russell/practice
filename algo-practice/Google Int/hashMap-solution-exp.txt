@@ -1,0 +1,39 @@
+//n = length of str1
+//m = length of str2
+time: O(n+m) but a little more => ~O(max(n,m))
+space: O(n)
+
+PART 1
+  1) make hashMap so that we can easily figure out if characters from str2 are in str1
+      -the hash map will also store the indicies of the letters in str1
+
+PART 2
+  make a function that finds the occurence of a str2 letter in str1 at an index >= the current index; if no occurence, start seaching at the beginning
+  -parameters:
+    obj: the object to look thru,
+    tar: the current index in srt1 (occurence >= starting index)
+    max: length of str1
+  -output:
+    an object with 2 properties: idx and rounds
+      idx: the index after where we found the letter in str 1
+        -we have to go to the next letter in str1 if we find the occurence
+      rounds: how many times we couldn't find the letter in str1 and had to start over
+        -can be a maximum of 1
+
+PART 3
+  itterate over str2: at each letter
+    1) search hashMap to see if letter is in str1 => if it's not, return null
+    2) pass to search function => will return the new incrimented index in str1 and how many rounds it took to find it
+      3) assign incrimented str1 index to current index
+      4) add rounds to numOfRounds
+        -if 0, numOfRounds doesnt change
+
+RETURN numOfROunds
+
+
+  a a a b b c e _
+          i
+
+
+  a a c e b b a b c
+      |
