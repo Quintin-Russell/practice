@@ -140,53 +140,68 @@ class: stateful
 
 
 20. What is the use of render() in React?
+the render xis the function that renders elements to the DOM
+---------------
 
 
 
 
 21. What is a state in React?
-
-
+state is a way to determine if the component should rerender
+------------------------------
+state is an object that contains information about the component
+when state is changed, the component rerenders
+state can be changed by a user interaction or system operation
 
 
 22. How do you implement state in React?
-
+class: state object in the constructor function
+function: useState hook
 
 
 
 23. How do you update the state of a component?
-
+class: setState({})
+function: 2nd element in the array returned by useState
 
 
 
 24. What are props in React?
-
+props are immutable data that is passed to a component by its parent. props can be accessed throughout the component
 
 
 
 25. How do you pass props between components?
-
+props are passed by using similar syntax to HTML attributes
 
 
 
 26. What are the differences between state and props?
-
+state are mutable data that is managed by a component
+props are immutable data that is passed to a component by its parent
 
 
 
 27. What is a higher-order component in React?
+A higher order component is a component that is made of smaller components. higher order components help to organize and manage other components in an application
 
 
 
 
 28. How can you embed two or more components into one?
-
+By using a higher-order component. The child components can be conditionally rendered and/or controlled by the parent component
 
 
 
 29. What are the differences between class and functional components?
+class: this keyword, state object in constructor funct, can define methods w/in class, render()
 
-
-
+function: no explicit state (add state via hooks)
 
 30. Explain the lifecycle methods of components.
+----------------
+getInitialState(): This is executed before the creation of the component.
+componentDidMount(): Is executed when the component gets rendered and placed on the DOM.
+shouldComponentUpdate(): Is invoked when a component determines changes to the DOM and returns a “true” or “false” value based on certain conditions.
+componentDidUpdate(): Is invoked immediately after rendering takes place.
+componentWillUnmount(): Is invoked immediately before a component is destroyed and unmounted permanently.

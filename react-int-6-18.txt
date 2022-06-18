@@ -1,0 +1,171 @@
+link: https://www.simplilearn.com/tutorials/reactjs-tutorial/reactjs-interview-questions
+
+1. What are the features of React?
+-virtual DOM
+-state management
+-jsx
+-----------------
+-components
+-one way data binding
+
+2. What is JSX?
+-way to write html pseudo elements in JS
+
+
+3. Can web browsers read JSX directly?
+-no, needs an interpreter to turn jsx => JS => DOM nodes
+
+4. What is the virtual DOM?
+-a lightweight copy of the DOM that react uses to detect changes to the UI by comparing to the actual DOM
+
+
+5. Why use React instead of other frameworks, like Angular?
+more lightweight, better data ctrl
+-------
+less code/more simple
+better performance (lightweight)
+reusable components
+better debug tools
+
+
+6. What is the difference between the ES6 and ES5 standards?
+-arrow functions
+-promises
+-async/await (?)
+-----------
+extends
+import statements (vs require)
+
+
+
+7. How do you create a React app?
+easiest way = via npm package
+
+
+
+8. What is an event in React?
+an event is a user interaction with the UI or a system triggered event
+
+
+9. How do you create an event in React?
+use a react eventListener placed on the component or JSX element - camelCased listener that indicates the desired event
+  -pass eventListener a handler function
+  -same syntax as HTML attribute
+
+
+10. What are synthetic events in React?
+--------------
+Synthetic events combine the response of different browser's native events into one API, ensuring that the events are consistent across different browsers.
+The application is consistent regardless of the browser it is running in. Here, preventDefault is a synthetic event.
+
+
+
+
+11. Explain how lists (UL and OL) work in React
+same as in normal JS
+
+
+12. Why is there a need for using keys in Lists?
+to uniquely identify each element of a list. this ensures that changes to that element can be registered properly by the DOM and V DOM and subsequently updated properly
+
+
+13. What are forms in React?
+forms enable user int with webpage. can be used to collect data from the user
+
+
+15. How do you write comments in React?
+same as in JS but in render method {/*________*/}
+
+
+16. What is an arrow function and how is it used in React?
+shorthand for defining a function: 3 parts:
+  -parameters defined in ()
+  - =>
+  - code block
+    - if simple function, do not have to include a retun statement
+
+
+
+17. How is React different from React Native?
+-react native is react optimized for mobile
+
+
+18. How is React different from Angular?
+-React: one way data binding => Ang: 2 way
+
+
+19. What are the components in React?
+reusable blocks of code that can internally manage their own data and recieve data from parent components
+
+----------
+pieces of UI
+enable UI to be seperated into independent blocks that can be processed independently
+
+
+20. What is the use of render() in React?
+the render method displays the component to the UI
+
+
+21. What is a state in React?
+state is data that the react component manages itself
+--------
+upon changes to state, the component (and child components) will rerender
+
+
+22. How do you implement state in React?
+class: state obj in constructor
+
+function: use of react hooks
+
+
+23. How do you update the state of a component?
+class: setState
+
+function: 2nd element of returned array from useState function
+
+
+
+24. What are props in React?
+props are read only data passed to a component from its parent. used to share data bw components
+
+
+25. How do you pass props between components?
+similar syntax to HTML attributes
+
+
+26. What are the differences between state and props?
+state is mutable and internally managed by a component
+props are read only and passed to a component
+
+
+27. What is a higher-order component in React?
+components that render child components
+
+
+
+28. How can you embed two or more components into one?
+using higher order components to organize and manage them
+
+
+29. What are the differences between class and functional components?
+class: use render method, can use constructor if establishing state, can define methods, this keyword, stateful, use extends keyword
+
+functional: do not explicitly have state (have to use react hooks), no render method
+
+both can except props
+
+30. Explain the lifecycle methods of components.
+bfore creation:
+useInitialState()
+
+after rendering and mounting to DOM:
+ComponentDidMount()
+
+before component is updated:
+ComponentshouldUpdate()
+
+after updated:
+ComponentDidUpdate()
+
+before component is unmounted from DOM:
+ComponentWillUnmount()

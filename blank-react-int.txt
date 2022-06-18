@@ -1,0 +1,125 @@
+link: https://www.simplilearn.com/tutorials/reactjs-tutorial/reactjs-interview-questions
+
+1. What are the features of React?
+
+
+2. What is JSX?
+
+
+
+3. Can web browsers read JSX directly?
+
+
+4. What is the virtual DOM?
+
+
+
+5. Why use React instead of other frameworks, like Angular?
+
+
+
+6. What is the difference between the ES6 and ES5 standards?
+
+
+
+7. How do you create a React app?
+
+
+
+
+8. What is an event in React?
+
+
+
+9. How do you create an event in React?
+
+
+
+10. What are synthetic events in React?
+
+
+
+
+
+11. Explain how lists (UL and OL) work in React
+
+
+
+12. Why is there a need for using keys in Lists?
+
+
+
+13. What are forms in React?
+
+
+
+15. How do you write comments in React?
+
+
+
+16. What is an arrow function and how is it used in React?
+
+
+
+
+17. How is React different from React Native?
+
+
+
+
+
+18. How is React different from Angular?
+
+
+
+
+
+19. What are the components in React?
+
+
+20. What is the use of render() in React?
+
+
+
+
+
+21. What is a state in React?
+
+
+
+22. How do you implement state in React?
+
+
+
+
+23. How do you update the state of a component?
+
+
+
+
+24. What are props in React?
+
+
+
+25. How do you pass props between components?
+
+
+
+26. What are the differences between state and props?
+
+
+
+
+27. What is a higher-order component in React?
+
+
+
+
+28. How can you embed two or more components into one?
+
+
+
+29. What are the differences between class and functional components?
+
+
+30. Explain the lifecycle methods of components.
