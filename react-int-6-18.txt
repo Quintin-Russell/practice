@@ -144,10 +144,28 @@ components that render child components
 
 
 28. How can you embed two or more components into one?
-using higher order components
+using higher order components to organize and manage them
 
 
 29. What are the differences between class and functional components?
+class: use render method, can use constructor if establishing state, can define methods, this keyword, stateful, use extends keyword
 
+functional: do not explicitly have state (have to use react hooks), no render method
+
+both can except props
 
 30. Explain the lifecycle methods of components.
+bfore creation:
+useInitialState()
+
+after rendering and mounting to DOM:
+ComponentDidMount()
+
+before component is updated:
+ComponentshouldUpdate()
+
+after updated:
+ComponentDidUpdate()
+
+before component is unmounted from DOM:
+ComponentWillUnmount()
