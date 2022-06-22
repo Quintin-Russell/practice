@@ -29,13 +29,13 @@ Constraints:
 1 <= m, n <= 100
 
 Y
-| V
-| [][][][][][][]
-|    R
-|  [][][][][][][]
-|  D
-|  [][][][][][][]
-|             X
+|
+| [-][ ][ ][ ][ ][ ][1]
+|
+| [ ][ ][ ][ ][ ][ ][1]
+|                 X
+| [1][1][1][1][1][1][1]
+|
 ________________________ X
 
 
@@ -50,4 +50,6 @@ create X arrays of X lengthand initialize to 1
 itterate thru arrays and keep track of indicieis in vars X and Y
 
 at each index:
-  arr[x][y] = arr[x-1][y] + arr[x][y-1]
+  U = (arr[x][y-1]) ? arr[x][y-1] : 0
+  L = (arr[x-1][y]) ? arr[x-1][y] : 0
+  arr[x][y] = U + L
